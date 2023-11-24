@@ -20,7 +20,7 @@ ESTRUCTURA DEL REPOSITORIO
 
 04_#### REVISAR DE LA GRABACIÓN ######################
    #### Folder **SRC/source¿?** ==> tbc 
-   #### main.py --> directamente python
+   #### main.py --> directamente python, fuera de las carpetas pq va a llamar a las otras carpetas
    #### - hay una principal (main)
    #### - en el otro tenemos las funciones
    ######################################################
