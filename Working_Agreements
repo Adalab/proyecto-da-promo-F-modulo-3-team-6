@@ -7,9 +7,10 @@ ScurmMasterII  Lucía
 ## CONCILIACIÓN ##
 - Quedamos fuera si podemos la mayoría
   A TENER EN CUENTA:
-    - Marga: martes y jueves por la tarde no puede 13 Dic no puede
-    - Rocío: martes tarde no puede (disponible hasta las 18:30)
-    - Lucía: 5 Diciembre no puede por la tarde
+    - Marga: lunes y miércoles por la tarde no puede 13 Dic no puede
+    - Rocío: martes tarde no puede (disponible hasta las 18:30).
+    - Lucía: 11 Diciembre no puede por la tarde
+    - Marta: no puede los martes de 19 a 21. 19Diciembre no puede
 
 ## COMUNICACIÓN ##
 - Comunicación clara, honesta y asertiva
@@ -19,10 +20,11 @@ ScurmMasterII  Lucía
 
 ## CÓDIGO ##
 - Haremos reuniones para compartir el código/avances/bloqueos cuando nos repartamos el trabajo
-- Documentar los cambios en el mismo .ipynb ==> COMENTAMOS EL CÓDIGO
+- Documentar los cambios en el mismo .ipynb ==> intentamos COMENTAR EL CÓDIGO
 
 ## GIT HUB ##
-- A Git Hub subimos sólo lo definitivo
+- A Git Hub subimos sólo lo definitivo:
+             - no esperar a que esté terminado, sino que el documento en sí será el definitivo: subimos las versiones oficiales
 - Sólo haremos push cuando estemos las cuatro juntas (preferentemente en la hora de proyecto)
 - En el caso de una subida urgente, nos avisamos por Slack
 
