@@ -59,7 +59,7 @@ ENGINE = InnoDB;
 -- Table `Talent_transformation`.`2B_laboral_life`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Talent_transformation`.`2B_laboral_life` (
-  `id_life` INT NOT NULL,
+  `id_life` INT NOT NULL AUTO_INCREMENT,
   `Numcompaniesworked` INT NULL,
   `Totalworkingyears` INT NULL,
   `Education` INT NULL,
@@ -79,13 +79,13 @@ ENGINE = InnoDB;
 -- Table `Talent_transformation`.`3_economic_data`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Talent_transformation`.`3_economic_data` (
-  `id_economic` INT NOT NULL,
+  `id_economic` INT NOT NULL AUTO_INCREMENT,
   `Monthlyrate` INT NULL,
   `Percentsalaryhike` INT NULL,
   `Stockoptionlevel` INT NULL,
-  `Dailyrate` DECIMAL(5,2) NULL,
-  `Monthlyincome` DECIMAL(10,2) NULL,
-  `Hourlyrate` DECIMAL(5,2) NULL,
+  `Dailyrate` DECIMAL(10,2) NULL,
+  `Monthlyincome` DECIMAL(15,2) NULL,
+  `Hourlyrate` DECIMAL(10,2) NULL,
   `1_personal_data_Employeenumber` INT NOT NULL,
   PRIMARY KEY (`id_economic`),
   INDEX `fk_3_economic_data_1_personal_data1_idx` (`1_personal_data_Employeenumber` ASC) VISIBLE,
@@ -101,9 +101,9 @@ ENGINE = InnoDB;
 -- Table `Talent_transformation`.`4_satisfaction`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Talent_transformation`.`4_satisfaction` (
-  `id4_satisfaction` INT NOT NULL,
+  `id4_satisfaction` INT NOT NULL AUTO_INCREMENT,
   `Environmentsatisfaction` VARCHAR(45) NULL,
-  `Jobinvolvement` INT NULL,
+  `Jobinvolvement` VARCHAR(45) NULL,
   `Jobsatisfaction` VARCHAR(45) NULL,
   `Relationshipsatisfaction` VARCHAR(45) NULL,
   `Performancerating` DECIMAL(5,2) NULL,
