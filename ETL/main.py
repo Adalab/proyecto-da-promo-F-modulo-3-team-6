@@ -23,4 +23,15 @@ df_drop_col = scl.drop_col(df_noduplicated,["Over18", "Standardhours", "Yearsinc
 
 #%%
 df_re_re = scl.renaming_remotework(df_drop_col)
-df_re_re.head(10)
+
+#%%
+df_gender = scl.gender_changed(df_re_re)
+
+#%%
+df_gender["Age"] = df_gender["Age"].apply(scl.transform_to_number)
+
+# %%
+scl.title_jobrole(df_gender)
+
+#%%
+scl.select_dig_env(df_gender)
