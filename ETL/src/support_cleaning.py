@@ -14,13 +14,13 @@ def drop_duplicated(dataframe, column):
     return df_drop_dup
 
 # %%
-def drop_col(dataframe, list_drop):
-    df_drop_col = dataframe.drop(list_drop, axis=1 , inplace=True, errors='raise')
-    return df_drop_col
+def drop_col(df_drop_dup, list_drop):
+    df_drop_dup.drop(list_drop, axis=1 , inplace=True, errors='raise')
+    return df_drop_dup
 
 #%%
 def renaming_remotework(dataframe):
     dict_map = {"0": "No", "False": "No", "1": "Yes", "True": "Yes", "Yes": "Yes"}
-    df_rere = dataframe["Remotework"] = dataframe["Remotework"].map(dict_map)
-    return df_rere
+    dataframe["Remotework"] = dataframe["Remotework"].map(dict_map)
+    return dataframe
 
