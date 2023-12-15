@@ -1,8 +1,7 @@
 #%%
 import pandas as pd
 from src import support_exploration as sex
-#from src import support_cleaning as scl
-from src import support_cleaning_copy as scl
+from src import support_cleaning as scl
 from src import support_DDBB as sdb
 from src import support_AB_testing as sab
 
@@ -14,10 +13,10 @@ df = pd.read_csv("data/HR RAW DATA.csv", index_col=0)
 sex.exploracion_csv(df)
 
 # %%
-df_capitalize = scl.capitalize_col(df)
+scl.capitalize_col(df)
 
 #%%
-df_noduplicated = scl.drop_duplicated(df_capitalize, 'Employeenumber')
+df_noduplicated = scl.drop_duplicated(df, 'Employeenumber')
 
 #%% 
 df_drop_col = scl.drop_col(df_noduplicated,["Over18", "Standardhours", "Yearsincurrentrole", "Employeecount", "Sameasmonthlyincome", "Salary", "Numberchildren", "Roledepartament"])
