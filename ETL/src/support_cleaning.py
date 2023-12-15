@@ -4,13 +4,13 @@ import pandas as pd
 #%%
 def capitalize_col(dataframe):
     new_columns={columna: columna.capitalize() for columna in dataframe.columns} 
-    df_capitalize_done = pd.DataFrame(dataframe.rename(columns = new_columns, inplace = True))
+    df_capitalize_done = dataframe.rename(columns = new_columns, inplace = True)
     return df_capitalize_done
 
 # %%
 def drop_duplicated(dataframe, column):
     # Mantener el último duplicado y conservar los NaN
-    df_drop_dup = pd.DataFrame(dataframe[~dataframe[column].duplicated(keep='last') | dataframe[column].isnull()])
+    df_drop_dup = dataframe[~dataframe[column].duplicated(keep='last') | dataframe[column].isnull()]
     return df_drop_dup
 
 # %%
