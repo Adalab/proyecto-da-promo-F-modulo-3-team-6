@@ -101,3 +101,16 @@ def comma_substitution(cadena):
     except:
         return np.nan
     
+#%%
+def negative_to_null(data):
+    if data < 0:
+        return np.nan
+    else:
+        return data
+    
+#%%
+def not_available_to_null(data):
+    if data == 'Not Available':
+        return np.nan
+    else:
+        return float(data)
