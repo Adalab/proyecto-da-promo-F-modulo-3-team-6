@@ -1,7 +1,9 @@
 #%%
 import pandas as pd
+from word2number import w2n
 from src import support_exploration as sex
 from src import support_cleaning as scl
+from src import support_nulls as snu
 from src import support_DDBB as sdb
 from src import support_AB_testing as sab
 
@@ -35,3 +37,29 @@ scl.title_jobrole(df_gender)
 
 #%%
 scl.select_dig_env(df_gender)
+
+#%%
+df_gender["Dailyrate"]= df_gender["Dailyrate"].apply(scl.transform_salary)
+
+
+#%%
+columns_to_modify = ["Jobsatisfaction", "Relationshipsatisfaction", "Environmentsatisfaction"]
+for column in columns_to_modify:
+    df_gender[column] = scl.labels_satisfaction(df_gender,column)
+
+#%%
+df_gender["Joblevel"] = scl.labels_joblevel(df_gender,"Joblevel")
+
+#%%
+df_format=scl.marital(df_gender)
+
+#%%
+columns_to_modify=["Worklifebalance", "Monthlyincome", "Performancerating", "Totalworkingyears","Employeenumber"]
+for column in columns_to_modify:
+    df_format[column] = df_format[column].apply(scl.comma_substitution)
+# %%
+df_self=snu.self_incre(df_format)
+
+#%%
+df_category=snu.nulls_category(df_self)
+   
