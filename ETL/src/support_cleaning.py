@@ -3,38 +3,31 @@
 import pandas as pd
 from word2number import w2n
 import numpy as np
-
 #%%
 def capitalize_col(dataframe):
     new_columns={columna: columna.capitalize() for columna in dataframe.columns} 
     dataframe_capitalize_done = dataframe.rename(columns = new_columns, inplace = True)
     return dataframe_capitalize_done
-
 # %%
 def drop_duplicated(dataframe, column):
     # Mantener el último duplicado y conservar los NaN
     dataframe_drop_dup = dataframe[~dataframe[column].duplicated(keep='last') | dataframe[column].isnull()]
     return dataframe_drop_dup
-
 # %%
 def drop_col(dataframe_drop_dup, list_drop):
     dataframe_drop_dup.drop(list_drop, axis=1 , inplace=True, errors='raise')
     return dataframe_drop_dup
-
 #%%
 def renaming_remotework(dataframe):
     dict_map = {"0": "No", "False": "No", "1": "Yes", "True": "Yes", "Yes": "Yes"}
     dataframe["Remotework"] = dataframe["Remotework"].map(dict_map)
     return dataframe
-
 #%%
 def gender_changed(dataframe):
     dataframe['Gender'] = dataframe['Gender'].astype(str)
     dataframe['Gender'] = dataframe['Gender'].replace('0', "Male")
     dataframe['Gender'] = dataframe['Gender'].replace('1', "Female")
     return dataframe
-
-
 #%%
 #Función que transforma las palabras (en inglés) y strings de números ('54') a integers
 def transform_to_number(age):
@@ -44,12 +37,10 @@ def transform_to_number(age):
     #Con este except le decimos que devuelva el integer sin cambiarlo
     except:
         return age 
-
 #%% 
 def title_jobrole(dataframe):
     dataframe['Jobrole'] = dataframe['Jobrole'].str.title()
     return dataframe
-
 #%%
 def select_dig_env(dataframe):
     dataframe["Environmentsatisfaction"] = dataframe["Environmentsatisfaction"].astype(str).str.replace(r'(\d)\d', r'\1', regex=True).astype(int)
@@ -71,8 +62,6 @@ def labels_satisfaction(dataframe,col):
         return dataframe[col]
     except: 
         return col 
-    
-
 # %%
 def labels_joblevel(df,col):
     dict_job = {
@@ -93,24 +82,26 @@ def marital (dataframe):
     dataframe['Maritalstatus'] = dataframe['Maritalstatus'].str.title()
     dataframe['Maritalstatus'] = dataframe['Maritalstatus'].replace('Marreid', "Married") 
     return dataframe
-
 #%%
 def comma_substitution(cadena):
     try:
         return float(cadena.replace(",", "."))
     except:
         return np.nan
-    
 #%%
 def negative_to_null(data):
     if data < 0:
         return np.nan
     else:
         return data
-    
 #%%
 def not_available_to_null(data):
     if data == 'Not Available':
         return np.nan
     else:
         return float(data)
+#%%
+def labels_jobinvolv(dataframe):
+    dict_map = {1.0: "Low", 2.0: "Moderate", 3.0: "High", 4.0: "Very High"}
+    dataframe["Jobinvolvement"] = dataframe["Jobinvolvement"].replace(dict_map)
+    return dataframe

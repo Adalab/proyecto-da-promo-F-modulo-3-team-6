@@ -1,11 +1,16 @@
 #%%
 import pandas as pd
+import os
+from dotenv import load_dotenv
 from word2number import w2n
 from src import support_exploration as sex
 from src import support_cleaning as scl
 from src import support_nulls as snu
 from src import support_DDBB as sdb
 from src import support_AB_testing as sab
+from src import queries_creacion_tablas as squ
+
+load_dotenv("src/.env")
 
 pd.set_option('display.max_columns', None) # para poder visualizar todas las columnas de los DataFrames
 df = pd.read_csv("data/HR RAW DATA.csv", index_col=0)
@@ -67,4 +72,51 @@ df_final.describe()[['Dailyrate', 'Dailyrate_ITE', 'Dailyrate_KNN', 'Distancefro
 #%%
 snu.rearrange(df_final)
 # %%
-#df_final.to_csv("../Data/raw_data_final.csv")
+df_definitive = scl.labels_jobinvolv(df_final)
+df_definitive.head()
+
+
+#df_definitive.to_csv("../data/raw_data_final.csv")
+
+#%%
+our_password = os.getenv("our_password")  
+name_ddbb = os.getenv("name_ddbb") 
+
+# Creación base de datos
+sdb.creacion_bbdd_tablas(squ.query_creacion_bbdd, our_password, name_ddbb)
+# Creación de las tablas 
+sdb.creacion_bbdd_tablas(squ.query_tabla_personal_data, our_password)
+sdb.creacion_bbdd_tablas(squ.query_tabla_laboral_data, our_password)
+sdb.creacion_bbdd_tablas(squ.query_tabla_laboral_life, our_password)
+sdb.creacion_bbdd_tablas(squ.query_tabla_economic_data, our_password)
+sdb.creacion_bbdd_tablas(squ.query_tabla_satisfaction, our_password)
+
+#%%
+data_table1 = list((zip(df_definitive["Employeenumber"].values, df_definitive["Age"].values, df_definitive["Gender"].values, df_definitive["Maritalstatus"].values,df_definitive["Datebirth"].values)))
+data_table1 = sdb.change_to_float(data_table1)
+#%%
+df_definitive.rename(columns={"Yearswithcurrmanager": "Yearswithcurrentmanager"}, inplace=True)
+data_table2 = list((zip(df_definitive["Joblevel"].values, df_definitive["Jobrole"].values, df_definitive["Businesstravel"].values, df_definitive["Department"].values, df_definitive["Overtime"].values, df_definitive["Distancefromhome"].values, df_definitive["Yearssincelastpromotion"].values,df_definitive["Yearsatcompany"].values, df_definitive["Yearswithcurrentmanager"].values,df_definitive["Remotework"].values, df_definitive["Trainingtimeslastyear"].values,df_definitive["Attrition"].values)))
+data_table2 = sdb.change_to_float(data_table2)
+#%%
+data_table2b = list((zip(df_definitive["Numcompaniesworked"].values, df_definitive["Totalworkingyears"].values, df_definitive["Education"].values, df_definitive["Educationfield"].values)))
+data_table2b = sdb.change_to_float(data_table2b)
+#%%
+data_table3 = list((zip(df_definitive["Monthlyrate"].values, df_definitive["Percentsalaryhike"].values, df_definitive["Stockoptionlevel"].values, df_definitive["Dailyrate"].values,df_definitive["Monthlyincome"].values,df_definitive["Hourlyrate"].values,)))
+data_table3 = sdb.change_to_float(data_table3)
+#%%
+data_table4 = list((zip(df_definitive["Environmentsatisfaction"].values, df_definitive["Jobinvolvement"].values, df_definitive["Jobsatisfaction"].values, df_definitive["Relationshipsatisfaction"].values,df_definitive["Performancerating"].values, df_definitive["Worklifebalance"].values)))
+data_table4 = sdb.change_to_float(data_table4)
+#%%
+# Insertar los datos en las tablas
+#df_definitive[["Employeenumber", "Age", "Gender", "Maritalstatus", "Datebirth"]] = df_definitive[["Employeenumber", "Age", "Gender", "Maritalstatus", "Datebirth"]].applymap(bss.convertir_lista)
+sdb.insert_data(squ.query_insert_table1, our_password, name_ddbb, data_table1)
+#%%
+sdb.insert_data(squ.query_insert_table2, our_password, name_ddbb, data_table2)
+#%%
+sdb.insert_data(squ.query_insert_table2b, our_password, name_ddbb, data_table2b)
+sdb.insert_data(squ.query_insert_table3, our_password, name_ddbb, data_table3)
+#%%
+sdb.insert_data(squ.query_insert_table4, our_password, name_ddbb, data_table4)
+
+# %%
