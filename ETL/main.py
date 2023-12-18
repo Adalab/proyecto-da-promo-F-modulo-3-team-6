@@ -61,7 +61,8 @@ df_category = snu.fill_department(df_category, 'Sales Executive', 'Sales')
 df_category = snu.fill_department(df_category, 'Sales Representative', 'Sales')
 df_category = snu.fill_department(df_category, 'Human Resources', 'Human Resources')
 df_category = snu.fill_department(df_category, 'Manager', 'Unknown')
-
+# %%
+df_category["Department"] = df_category["Department"].str.strip()
 # %%
 df_final = df_category.copy()
 snu.iterative_imputer(df_final)
