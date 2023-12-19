@@ -110,6 +110,7 @@ data_table3 = sdb.change_to_float(data_table3)
 #%%
 data_table4 = list((zip(df_definitive["Environmentsatisfaction"].values, df_definitive["Jobinvolvement"].values, df_definitive["Jobsatisfaction"].values, df_definitive["Relationshipsatisfaction"].values,df_definitive["Performancerating"].values,df_definitive["Worklifebalance"].values, df_definitive["Employeenumber"].values)))
 data_table4 = sdb.change_to_float(data_table4)
+data_table4 = sdb.convert_list(data_table4)
 #%%
 # Insertar los datos en las tablas
 sdb.insert_data(squ.query_insert_table1, our_password, name_ddbb, data_table1)
@@ -121,5 +122,3 @@ sdb.insert_data(squ.query_insert_table2b, our_password, name_ddbb, data_table2b)
 sdb.insert_data(squ.query_insert_table3, our_password, name_ddbb, data_table3)
 #%%
 sdb.insert_data(squ.query_insert_table4, our_password, name_ddbb, data_table4)
-
-# %%

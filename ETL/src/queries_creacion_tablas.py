@@ -77,7 +77,13 @@ query_tabla_satisfaction = """CREATE TABLE IF NOT EXISTS `Talent_transformation`
                                 REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`));
                             """
 
-query_insert_table1 = "INSERT INTO 1_personal_data (Employeenumber, Age, Gender, Maritalstatus, Datebirth) VALUES (%s, %s, %s, %s, %s)"
+query_insert_table1 = """INSERT INTO 1_personal_data (
+                        Employeenumber, 
+                        Age,
+                        Gender, 
+                        Maritalstatus, 
+                        Datebirth) 
+                        VALUES (%s, %s, %s, %s, %s)"""
 
 query_insert_table2 = """INSERT INTO `2_laboral_data` (
                         Joblevel,
@@ -95,8 +101,30 @@ query_insert_table2 = """INSERT INTO `2_laboral_data` (
                         Employeenumber) 
                         VALUES (%s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s,%s)"""
 
-query_insert_table2b = "INSERT INTO `2B_laboral_life` (Numcompaniesworked, Totalworkingyears, Education, Educationfield, Employeenumber) VALUES (%s, %s, %s, %s, %s)"
+query_insert_table2b = """INSERT INTO `2B_laboral_life` (
+                        Numcompaniesworked, 
+                        Totalworkingyears, 
+                        Education, 
+                        Educationfield, 
+                        Employeenumber) 
+                        VALUES (%s, %s, %s, %s, %s)"""
 
-query_insert_table3 = "INSERT INTO `3_economic_data` (Monthlyrate, Percentsalaryhike, Stockoptionlevel, Dailyrate, Monthlyincome, Hourlyrate, Employeenumber) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+query_insert_table3 = """INSERT INTO `3_economic_data` (
+                        Monthlyrate, 
+                        Percentsalaryhike, 
+                        Stockoptionlevel, 
+                        Dailyrate, 
+                        Monthlyincome, 
+                        Hourlyrate, 
+                        Employeenumber) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
 
-query_insert_table4 = "INSERT INTO `4_satisfaction` (Environmentsatisfaction, Jobsatisfaction, Relationshipsatisfaction, Performancerating, Worklifebalance, Jobinvolvement, Employeenumber) VALUES (%s, %s,%s, %s, %s, %s, %s)"
+query_insert_table4 = """INSERT INTO `4_satisfaction` (
+                        Environmentsatisfaction, 
+                        Jobinvolvement, 
+                        Jobsatisfaction, 
+                        Relationshipsatisfaction, 
+                        Performancerating, 
+                        Worklifebalance, 
+                        Employeenumber) 
+                        VALUES (%s, %s,%s, %s, %s, %s, %s)"""
