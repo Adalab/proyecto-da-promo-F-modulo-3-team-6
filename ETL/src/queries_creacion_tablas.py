@@ -23,30 +23,26 @@ query_tabla_laboral_data = """CREATE TABLE IF NOT EXISTS `Talent_transformation`
                             `Remotework` VARCHAR(45) NULL,
                             `Trainingtimeslastyear` INT NULL,
                             `Attrition` VARCHAR(45) NULL,
-                            `1_personal_data_Employeenumber` INT NOT NULL,
+                            `Employeenumber` INT NOT NULL,
                             PRIMARY KEY (`id_ficha`),
-                            INDEX `fk_2_laboral_data_1_personal_data_idx` (`1_personal_data_Employeenumber` ASC) VISIBLE,
+                            INDEX `fk_2_laboral_data_idx` (`Employeenumber` ASC) VISIBLE,
                             CONSTRAINT `fk_2_laboral_data_1_personal_data`
-                                FOREIGN KEY (`1_personal_data_Employeenumber`)
-                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`)
-                                ON DELETE NO ACTION
-                                ON UPDATE NO ACTION);
+                                FOREIGN KEY (`Employeenumber`)
+                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`));
                             """
 
 query_tabla_laboral_life = """CREATE TABLE IF NOT EXISTS `Talent_transformation`.`2B_laboral_life` (
                             `id_life` INT NOT NULL AUTO_INCREMENT,
                             `Numcompaniesworked` INT NULL,
                             `Totalworkingyears` INT NULL,
-                            `Education` INT NULL,
+                            `Education` VARCHAR(50) NULL,
                             `Educationfield` VARCHAR(225) NULL,
-                            `1_personal_data_Employeenumber` INT NOT NULL,
+                            `Employeenumber` INT NOT NULL,
                             PRIMARY KEY (`id_life`),
-                            INDEX `fk_2B_laboral_life_1_personal_data1_idx` (`1_personal_data_Employeenumber` ASC) VISIBLE,
+                            INDEX `fk_2B_laboral_life_1_personal_data1_idx` (`Employeenumber` ASC) VISIBLE,
                             CONSTRAINT `fk_2B_laboral_life_1_personal_data1`
-                                FOREIGN KEY (`1_personal_data_Employeenumber`)
-                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`)
-                                ON DELETE NO ACTION
-                                ON UPDATE NO ACTION);
+                                FOREIGN KEY (`Employeenumber`)
+                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`));
                             """
 
 query_tabla_economic_data = """CREATE TABLE IF NOT EXISTS `Talent_transformation`.`3_economic_data` (
@@ -57,14 +53,12 @@ query_tabla_economic_data = """CREATE TABLE IF NOT EXISTS `Talent_transformation
                             `Dailyrate` FLOAT NULL,
                             `Monthlyincome` FLOAT NULL,
                             `Hourlyrate` FLOAT NULL,
-                            `1_personal_data_Employeenumber` INT NOT NULL,
+                            `Employeenumber` INT NOT NULL,
                             PRIMARY KEY (`id_economic`),
-                            INDEX `fk_3_economic_data_1_personal_data1_idx` (`1_personal_data_Employeenumber` ASC) VISIBLE,
+                            INDEX `fk_3_economic_data_1_personal_data1_idx` (`Employeenumber` ASC) VISIBLE,
                             CONSTRAINT `fk_3_economic_data_1_personal_data1`
-                                FOREIGN KEY (`1_personal_data_Employeenumber`)
-                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`)
-                                ON DELETE NO ACTION
-                                ON UPDATE NO ACTION);
+                                FOREIGN KEY (`Employeenumber`)
+                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`));
                             """
  
 query_tabla_satisfaction = """CREATE TABLE IF NOT EXISTS `Talent_transformation`.`4_satisfaction` (
@@ -75,19 +69,18 @@ query_tabla_satisfaction = """CREATE TABLE IF NOT EXISTS `Talent_transformation`
                             `Relationshipsatisfaction` VARCHAR(45) NULL,
                             `Performancerating` DECIMAL(5,2) NULL,
                             `Worklifebalance` DECIMAL(5,2) NULL,
-                            `1_personal_data_Employeenumber` INT NOT NULL,
+                            `Employeenumber` INT NOT NULL,
                             PRIMARY KEY (`id4_satisfaction`),
-                            INDEX `fk_4_satisfaction_1_personal_data1_idx` (`1_personal_data_Employeenumber` ASC) VISIBLE,
+                            INDEX `fk_4_satisfaction_1_personal_data1_idx` (`Employeenumber` ASC) VISIBLE,
                             CONSTRAINT `fk_4_satisfaction_1_personal_data1`
-                                FOREIGN KEY (`1_personal_data_Employeenumber`)
-                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`)
-                                ON DELETE NO ACTION
-                                ON UPDATE NO ACTION);
+                                FOREIGN KEY (`Employeenumber`)
+                                REFERENCES `Talent_transformation`.`1_personal_data` (`Employeenumber`));
                             """
 
 query_insert_table1 = "INSERT INTO 1_personal_data (Employeenumber, Age, Gender, Maritalstatus, Datebirth) VALUES (%s, %s, %s, %s, %s)"
 
-query_insert_table2 = """INSERT INTO 2_laboral_data (Joblevel,
+query_insert_table2 = """INSERT INTO `2_laboral_data` (
+                        Joblevel,
                         Jobrole,
                         Businesstravel,
                         Department,
@@ -99,11 +92,11 @@ query_insert_table2 = """INSERT INTO 2_laboral_data (Joblevel,
                         Remotework,
                         Trainingtimeslastyear,
                         Attrition,
-                        1_personal_data_Employeenumber) 
-                        VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s)"""
+                        Employeenumber) 
+                        VALUES (%s, %s, %s, %s,%s, %s, %s, %s, %s,%s, %s, %s,%s)"""
 
-query_insert_table2b = "INSERT INTO 2B_laboral_life (Numcompaniesworked, Totalworkingyears, Education, Educationfield, 1_personal_data_Employeenumber) VALUES (%s, %s, %s, %s, %s)"
+query_insert_table2b = "INSERT INTO `2B_laboral_life` (Numcompaniesworked, Totalworkingyears, Education, Educationfield, Employeenumber) VALUES (%s, %s, %s, %s, %s)"
 
-query_insert_table3 = "INSERT INTO 3_economic_data (Monthlyrate, Percentsalaryhike, Stockoptionlevel, Dailyrate, Monthlyincome, Hourlyrate, 1_personal_data_Employeenumber) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+query_insert_table3 = "INSERT INTO `3_economic_data` (Monthlyrate, Percentsalaryhike, Stockoptionlevel, Dailyrate, Monthlyincome, Hourlyrate, Employeenumber) VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
-query_insert_table4 = "INSERT INTO 4_satisfaction (Environmentsatisfaction, Jobsatisfaction, Relationshipsatisfaction, Performancerating, Worklifebalance, Jobinvolvement, 1_personal_data_Employeenumber) VALUES (%s, %s,%s, %s, %s, %s, %s)"
+query_insert_table4 = "INSERT INTO `4_satisfaction` (Environmentsatisfaction, Jobsatisfaction, Relationshipsatisfaction, Performancerating, Worklifebalance, Jobinvolvement, Employeenumber) VALUES (%s, %s,%s, %s, %s, %s, %s)"
