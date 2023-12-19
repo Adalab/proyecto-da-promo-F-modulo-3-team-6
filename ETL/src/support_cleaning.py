@@ -23,6 +23,11 @@ def renaming_remotework(dataframe):
     dataframe["Remotework"] = dataframe["Remotework"].map(dict_map)
     return dataframe
 #%%
+def education_level(dataframe):
+    dict_map = {1: "Elementary School", 2: "Middle School", 3: "High School", 4: "College/University", 5: "Graduate School"}
+    dataframe["Education"] = dataframe["Education"].map(dict_map)
+    return dataframe
+#%%
 def gender_changed(dataframe):
     dataframe['Gender'] = dataframe['Gender'].astype(str)
     dataframe['Gender'] = dataframe['Gender'].replace('0', "Male")
