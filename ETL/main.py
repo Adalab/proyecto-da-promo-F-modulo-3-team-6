@@ -22,6 +22,7 @@ df_noduplicated = scl.drop_duplicated(df, 'Employeenumber')
 df_drop_col = scl.drop_col(df_noduplicated,["Over18", "Standardhours", "Yearsincurrentrole", "Employeecount", "Sameasmonthlyincome", "Salary", "Numberchildren", "Roledepartament"])
 df_re_re = scl.renaming_remotework(df_drop_col)
 df_edu = scl.education_level(df_re_re)
+#%%
 df_gender = scl.gender_changed(df_edu)
 df_gender["Age"] = df_gender["Age"].apply(scl.transform_to_number)
 
@@ -47,7 +48,6 @@ df_format["Distancefromhome"] = df_format["Distancefromhome"].apply(scl.negative
 df_format["Hourlyrate"] = df_format["Hourlyrate"].apply(scl.not_available_to_null)
 # %%
 df_self=snu.self_incre(df_format)
-
 #%%
 df_category=snu.nulls_category(df_self)
     
@@ -62,7 +62,8 @@ df_category = snu.fill_department(df_category, 'Sales Executive', 'Sales')
 df_category = snu.fill_department(df_category, 'Sales Representative', 'Sales')
 df_category = snu.fill_department(df_category, 'Human Resources', 'Human Resources')
 df_category = snu.fill_department(df_category, 'Manager', 'Unknown')
-# %%
+
+#%%
 df_category["Department"] = df_category["Department"].str.strip()
 # %%
 df_final = df_category.copy()
@@ -78,7 +79,7 @@ df_definitive = scl.labels_jobinvolv(df_final)
 df_definitive.head()
 
 
-#df_definitive.to_csv("../data/raw_data_final.csv")
+df_definitive.to_csv("data/raw_data_final.csv")
 
 #%%
 our_password = os.getenv("our_password")  
@@ -98,25 +99,25 @@ data_table1 = list((zip(df_definitive["Employeenumber"].values, df_definitive["A
 data_table1 = sdb.change_to_float(data_table1)
 #%%
 df_definitive.rename(columns={"Yearswithcurrmanager": "Yearswithcurrentmanager"}, inplace=True)
-data_table2 = list((zip(df_definitive["Joblevel"].values, df_definitive["Jobrole"].values, df_definitive["Businesstravel"].values, df_definitive["Department"].values, df_definitive["Overtime"].values, df_definitive["Distancefromhome"].values, df_definitive["Yearssincelastpromotion"].values,df_definitive["Yearsatcompany"].values, df_definitive["Yearswithcurrentmanager"].values,df_definitive["Remotework"].values, df_definitive["Trainingtimeslastyear"].values,df_definitive["Attrition"].values)))
+data_table2 = list((zip(df_definitive["Joblevel"].values, df_definitive["Jobrole"].values, df_definitive["Businesstravel"].values, df_definitive["Department"].values, df_definitive["Overtime"].values, df_definitive["Distancefromhome"].values, df_definitive["Yearssincelastpromotion"].values,df_definitive["Yearsatcompany"].values, df_definitive["Yearswithcurrentmanager"].values,df_definitive["Remotework"].values, df_definitive["Trainingtimeslastyear"].values,df_definitive["Attrition"].values, df_definitive["Employeenumber"].values)))
 data_table2 = sdb.change_to_float(data_table2)
 #%%
-data_table2b = list((zip(df_definitive["Numcompaniesworked"].values, df_definitive["Totalworkingyears"].values, df_definitive["Education"].values, df_definitive["Educationfield"].values)))
+data_table2b = list((zip(df_definitive["Numcompaniesworked"].values, df_definitive["Totalworkingyears"].values, df_definitive["Education"].values, df_definitive["Educationfield"].values, df_definitive["Employeenumber"].values)))
 data_table2b = sdb.change_to_float(data_table2b)
 #%%
-data_table3 = list((zip(df_definitive["Monthlyrate"].values, df_definitive["Percentsalaryhike"].values, df_definitive["Stockoptionlevel"].values, df_definitive["Dailyrate"].values,df_definitive["Monthlyincome"].values,df_definitive["Hourlyrate"].values,)))
+data_table3 = list((zip(df_definitive["Monthlyrate"].values, df_definitive["Percentsalaryhike"].values, df_definitive["Stockoptionlevel"].values, df_definitive["Dailyrate"].values,df_definitive["Monthlyincome"].values,df_definitive["Hourlyrate"].values, df_definitive["Employeenumber"].values)))
 data_table3 = sdb.change_to_float(data_table3)
 #%%
-data_table4 = list((zip(df_definitive["Environmentsatisfaction"].values, df_definitive["Jobinvolvement"].values, df_definitive["Jobsatisfaction"].values, df_definitive["Relationshipsatisfaction"].values,df_definitive["Performancerating"].values, df_definitive["Worklifebalance"].values)))
+data_table4 = list((zip(df_definitive["Environmentsatisfaction"].values, df_definitive["Jobinvolvement"].values, df_definitive["Jobsatisfaction"].values, df_definitive["Relationshipsatisfaction"].values,df_definitive["Performancerating"].values,df_definitive["Worklifebalance"].values, df_definitive["Employeenumber"].values)))
 data_table4 = sdb.change_to_float(data_table4)
 #%%
 # Insertar los datos en las tablas
-#df_definitive[["Employeenumber", "Age", "Gender", "Maritalstatus", "Datebirth"]] = df_definitive[["Employeenumber", "Age", "Gender", "Maritalstatus", "Datebirth"]].applymap(bss.convertir_lista)
 sdb.insert_data(squ.query_insert_table1, our_password, name_ddbb, data_table1)
 #%%
 sdb.insert_data(squ.query_insert_table2, our_password, name_ddbb, data_table2)
 #%%
 sdb.insert_data(squ.query_insert_table2b, our_password, name_ddbb, data_table2b)
+#%%
 sdb.insert_data(squ.query_insert_table3, our_password, name_ddbb, data_table3)
 #%%
 sdb.insert_data(squ.query_insert_table4, our_password, name_ddbb, data_table4)
