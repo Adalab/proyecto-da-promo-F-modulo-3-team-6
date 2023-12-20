@@ -1,7 +1,5 @@
 #%%
 from ast import literal_eval
-#%%
-from ast import literal_eval
 
 import mysql.connector
 

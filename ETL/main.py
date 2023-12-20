@@ -114,11 +114,23 @@ data_table4 = sdb.convert_list(data_table4)
 #%%
 # Insertar los datos en las tablas
 sdb.insert_data(squ.query_insert_table1, our_password, name_ddbb, data_table1)
-#%%
 sdb.insert_data(squ.query_insert_table2, our_password, name_ddbb, data_table2)
-#%%
 sdb.insert_data(squ.query_insert_table2b, our_password, name_ddbb, data_table2b)
-#%%
 sdb.insert_data(squ.query_insert_table3, our_password, name_ddbb, data_table3)
-#%%
 sdb.insert_data(squ.query_insert_table4, our_password, name_ddbb, data_table4)
+
+#%%
+#Creamos los grupos de control:
+def category_satisfaction(value):
+    if (value=="Satisfied") or (value=="Very Satisfied"):
+        return 'A'
+    else:
+        return 'B'
+df_definitive['Groups'] = df_definitive['Jobsatisfaction'].apply(category_satisfaction)
+group_a= df_definitive[df_definitive["Groups"]=="A"]
+group_b= df_definitive[df_definitive["Groups"]=="B"]
+rotacion_por_grupo = df_definitive[df_definitive['Attrition'] == 'Yes'].groupby('Groups').size() / df_definitive.groupby('Groups').size() * 100
+rotacion_por_grupo
+# %%
+sab.test_chi(df_definitive)
+# %%
